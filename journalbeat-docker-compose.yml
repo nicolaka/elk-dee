@@ -1,0 +1,28 @@
+version: '3'
+services:
+      journalbeat:
+       image: nicolaka/journalbeat:latest
+       environment:
+        LOGSTASH_HOST: ${LOGSTASH_HOST}:5044
+       networks:
+        - journalbeat
+       volumes:
+        - /var/tmp/journalbeat:/data
+        - /var/log/journal:/var/log/journal:ro
+        - /run/log/journal:/run/log/journal:ro
+        - /etc/machine-id:/etc/machine-id:ro
+       deploy:
+        mode: global
+        update_config:
+          parallelism: 2
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+networks:
+  journalbeat:
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.16.230.0/24
