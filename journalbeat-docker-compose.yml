@@ -7,8 +7,6 @@ services:
        networks:
         - journalbeat
        volumes:
-        - /var/tmp/journalbeat:/data
-        - /var/log/journal:/var/log/journal:ro
         - /run/log/journal:/run/log/journal:ro
         - /etc/machine-id:/etc/machine-id:ro
        deploy:
