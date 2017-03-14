@@ -2,6 +2,6 @@
   "log-driver": "journald",
   "log-level": "debug",
   "log-opts": {
-    "tag":"{{.ImageName}}/{{.Name}}/{{.ID}}"
+    "tag":"{{.Name}}/{{.ID}}"
   }
 }

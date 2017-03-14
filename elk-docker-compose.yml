@@ -58,10 +58,4 @@ volumes:
 
 networks:
   elk:
-    driver: overlay
-    ipam:
-      driver: default
-      config:
-      -
-        subnet: 172.16.230.0/24
 
