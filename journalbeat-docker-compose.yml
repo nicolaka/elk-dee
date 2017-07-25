@@ -18,6 +18,8 @@ services:
           condition: on-failure
       logstash-mta:
        image: ahromis/logstash:latest
+       environment:
+        LOGSTASH_HOST: ${LOGSTASH_HOST}:5044
        hostname: logstash
        networks:
         - elk
