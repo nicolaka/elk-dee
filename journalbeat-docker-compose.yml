@@ -16,5 +16,25 @@ services:
           delay: 10s
         restart_policy:
           condition: on-failure
+      logstash-mta:
+       image: ahromis/logstash:latest
+       hostname: logstash
+       networks:
+        - elk
+       deploy:
+        mode: global
+        update_config:
+          parallelism: 2
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+       volumes:
+        - logstash-sincedb:/usr/share/logstash/data
+        - /var/lib/docker/volumes:/log/volumes
+
+volumes:
+  logstash-sincedb:
 networks:
   journalbeat:
+  elk:
+    external: true
