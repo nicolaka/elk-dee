@@ -1,11 +1,11 @@
 version: '3'
 services:
-      journalbeat:
+      journal-exporter:
        image: nicolaka/journalbeat:latest
        environment:
         LOGSTASH_HOST: ${LOGSTASH_HOST}:5044
        networks:
-        - journalbeat
+        - exporter
        volumes:
         - /run/log/journal:/run/log/journal:ro
         - /etc/machine-id:/etc/machine-id:ro
@@ -16,13 +16,13 @@ services:
           delay: 10s
         restart_policy:
           condition: on-failure
-      logstash-mta:
+      mta-exporter:
        image: ahromis/logstash:latest
        environment:
         LOGSTASH_HOST: ${LOGSTASH_HOST}:5044
        hostname: logstash
        networks:
-        - elk
+        - exporter
        deploy:
         mode: global
         update_config:
@@ -37,6 +37,4 @@ services:
 volumes:
   logstash-sincedb:
 networks:
-  journalbeat:
-  elk:
-    external: true
+  exporter:
